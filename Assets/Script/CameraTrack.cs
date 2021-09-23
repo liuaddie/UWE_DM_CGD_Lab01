@@ -12,7 +12,7 @@ public class CameraTrack : MonoBehaviour
     //Quaternion rot;   //[To Be Check] Error: unity Object reference not set to an instance of an object
     Vector3 pos;
     float rotOpposite;
-    int camDistantZ = 6;
+    int camDistantZ = 8;
     int camDistantY = 2;
     float speedPos = 6f;
     float speedRot = 40f;
@@ -26,16 +26,21 @@ public class CameraTrack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //----- Task 2 -----
-        pos = Vector3.Lerp(transform.position,
-            new Vector3(target.position.x, target.position.y + camDistantY, target.position.z - camDistantZ),
-            Time.deltaTime * speedPos);
-        transform.position = pos;
+        if (GameStart.started)
+        {
 
-        Quaternion currentRot = transform.rotation;
-        Quaternion targetRot = target.transform.rotation;
-        transform.rotation = Quaternion.RotateTowards(currentRot, targetRot, Time.deltaTime * speedRot);
+            pos = Vector3.Lerp(transform.position,
+                new Vector3(target.position.x, target.position.y + camDistantY, target.position.z - camDistantZ),
+                Time.deltaTime * speedPos);
+            transform.position = pos;
 
+            Quaternion currentRot = transform.rotation;
+            Quaternion targetRot = target.transform.rotation;
+            transform.rotation = Quaternion.RotateTowards(currentRot, targetRot, Time.deltaTime * speedRot);
+
+        }
         //// [To Be Check] Error: unity Object reference not set to an instance of an object
         //rot = Quaternion.Lerp(Camera.main.transform.rotation,
         //    target.transform.rotation,

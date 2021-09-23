@@ -20,27 +20,30 @@ public class Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(playerPos.x);
-        if (Input.GetKey(KeyCode.A) & (playerId == Players.Player1) || Input.GetKey(KeyCode.Quote) & (playerId ==Players.Player2))
+        if (GameStart.started)
         {
-            playerPos.x -= (playerPos.x > -50) ? 0.4f : 0f;
-        }
+            //print(playerPos.x);
+            if (Input.GetKey(KeyCode.A) & (playerId == Players.Player1) || Input.GetKey(KeyCode.L) & (playerId == Players.Player2))
+            {
+                playerPos.x -= (playerPos.x > -50) ? 0.4f : 0f;
+            }
 
-        if (Input.GetKey(KeyCode.S) & (playerId == Players.Player1) || Input.GetKey(KeyCode.Semicolon) & (playerId == Players.Player2))
-        {
-            playerPos.x += (playerPos.x < 50) ? 0.4f : 0f;
-        }
+            if (Input.GetKey(KeyCode.S) & (playerId == Players.Player1) || Input.GetKey(KeyCode.K) & (playerId == Players.Player2))
+            {
+                playerPos.x += (playerPos.x < 50) ? 0.4f : 0f;
+            }
 
-        if (Input.GetKey(KeyCode.Q) & (playerId == Players.Player1) || Input.GetKey(KeyCode.LeftBracket) & (playerId == Players.Player2))
-        {
-            transform.Rotate(0, 0, 1);
-        }
+            if (Input.GetKey(KeyCode.Q) & (playerId == Players.Player1) || Input.GetKey(KeyCode.O) & (playerId == Players.Player2))
+            {
+                transform.Rotate(0, 0, 1);
+            }
 
-        if(Input.GetKey(KeyCode.W) & (playerId == Players.Player1) || Input.GetKey(KeyCode.RightBracket) & (playerId == Players.Player2))
-        {
-            transform.Rotate(0, 0, -1);
-        }
+            if (Input.GetKey(KeyCode.W) & (playerId == Players.Player1) || Input.GetKey(KeyCode.P) & (playerId == Players.Player2))
+            {
+                transform.Rotate(0, 0, -1);
+            }
 
-        transform.position = playerPos;
+            transform.position = playerPos;
+        }
     }
 }
