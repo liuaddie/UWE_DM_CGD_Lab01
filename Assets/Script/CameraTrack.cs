@@ -5,19 +5,22 @@ using UnityEngine;
 public class CameraTrack : MonoBehaviour
 {
 
+    public enum Players { Player1, Player2 };
+    public Players playerId;
     public Transform target;
 
     //Quaternion rot;   //[To Be Check] Error: unity Object reference not set to an instance of an object
     Vector3 pos;
+    float rotOpposite;
     int camDistantZ = 6;
-    int camDistantY = 1;
+    int camDistantY = 2;
     float speedPos = 6f;
     float speedRot = 40f;
  
     // Start is called before the first frame update
     void Start()
     {
-
+        camDistantZ = (playerId == Players.Player1) ? camDistantZ : -camDistantZ;
     }
 
     // Update is called once per frame
