@@ -8,17 +8,22 @@ public class Control : MonoBehaviour
     public Players playerId;
 
     GameObject playerMum;
+    GameObject playerBullet;
     Vector3 playerPos;
     Vector3 playerPosG;
-    int reverse;
     float movSpeed;
     float bounceSpeed;
+    float bulletLife;
+    float bulletSpeed;
+    int reverse;
 
     // Start is called before the first frame update
     void Start()
     {
         movSpeed = 0.2f;
         bounceSpeed = 1f;
+        bulletSpeed = 50f;
+        bulletLife = 0.5f;
         reverse = (playerId == Players.Player2) ? -1 : 1;
         //print(playerId);
         playerMum = new GameObject(playerId + "_Mum");
@@ -28,6 +33,8 @@ public class Control : MonoBehaviour
         //{
         //    return number >= min && number <= max;
         //}
+        playerBullet = this.gameObject.transform.GetChild(0).gameObject;
+        //Physics.IgnoreCollision(playerBullet.GetComponent<Collider>(), transform.root.GetComponent<Collider>());
     }
 
     // Update is called once per frame
@@ -69,11 +76,15 @@ public class Control : MonoBehaviour
                 playerMum.transform.RotateAround(transform.position, Vector3.up, 1);
             }
 
+            if (Input.GetKey(KeyCode.LeftShift) & (playerId == Players.Player1) || Input.GetKey(KeyCode.RightShift) & (playerId == Players.Player2))
+            {
+                Fire();
+            }
+
             transform.localPosition = playerPos;
 
             // Make Sure players inside the board, and don't go out
             DontGoOut();
-
 
         }
     }
@@ -100,6 +111,28 @@ public class Control : MonoBehaviour
         transform.localPosition = playerPos;
     }
 
+    private void Fire()
+    {
+        //bulletTarget = Vector3.Lerp(playerBullet.transform.localPosition, new Vector3(playerBullet.transform.localPosition.x+ bulletDistance, playerBullet.transform.localPosition.y, playerBullet.transform.localPosition.z), Time.deltaTime * bulletSpeed);
+        //transform.position = pos;
+        GameObject fireBullet = Instantiate(playerBullet);
+        fireBullet.transform.position = playerBullet.transform.position;
+        fireBullet.transform.rotation = playerBullet.transform.rotation;
+        //fireBullet.transform.SetParent(playerBullets.transform);
+
+        //Physics.IgnoreCollision(fireBullet.GetComponent<Collider>(), playerBullet.transform.parent.GetComponent<Collider>());
+        Physics.IgnoreCollision(fireBullet.GetComponent<Collider>(), playerBullet.GetComponent<Collider>());
+        fireBullet.GetComponent<Rigidbody>().AddForce(playerBullet.transform.forward * bulletSpeed, ForceMode.Impulse);
+        //fireBullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+        StartCoroutine(KillBullet(fireBullet, bulletLife));
+
+    }
+
+    private IEnumerator KillBullet(GameObject fireBullet, float bulletLife)
+    {
+        yield return new WaitForSeconds(bulletLife);
+        Destroy(fireBullet);
+    }
 
 
 }

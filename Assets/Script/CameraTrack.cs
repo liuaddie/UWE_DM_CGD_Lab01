@@ -30,7 +30,7 @@ public class CameraTrack : MonoBehaviour
         camPosDiff = transform.position - target.position;
         camRotDiff = transform.rotation * Quaternion.Inverse(target.rotation);
         //print(camPosDiff);
-        print(camRotDiff);
+        //print(camRotDiff);
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - reverse*4);  //Make camera slightly zoom at the beginning
         transform.RotateAround(target.position, Vector3.up, 45); //Make camera slightly rotated at the beginning to see emery
     }
@@ -42,10 +42,7 @@ public class CameraTrack : MonoBehaviour
         //----- Task 2 -----
         if (GameStart.started)
         {
-
-            pos = Vector3.Lerp(transform.position,
-                camTarget.transform.position,
-                Time.deltaTime * speedPos);
+            pos = Vector3.Lerp(transform.position, camTarget.transform.position, Time.deltaTime * speedPos);
             transform.position = pos;
 
             Quaternion currentRot = transform.rotation;
