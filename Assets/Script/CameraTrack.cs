@@ -36,9 +36,9 @@ public class CameraTrack : MonoBehaviour
                 Time.deltaTime * speedPos);
             transform.position = pos;
 
-            Quaternion currentRot = transform.rotation;
-            Quaternion targetRot = target.transform.rotation;
-            transform.rotation = Quaternion.RotateTowards(currentRot, targetRot, Time.deltaTime * speedRot);
+            //Quaternion currentRot = transform.rotation;
+            //Quaternion targetRot = target.transform.rotation;
+            //transform.rotation = Quaternion.RotateTowards(currentRot, targetRot, Time.deltaTime * speedRot);
 
         }
         //// [To Be Check] Error: unity Object reference not set to an instance of an object

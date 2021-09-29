@@ -192,14 +192,18 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '[ Player 2 ]
 
-    Left = K
+    Up = I
+
+    Down = K
+
+    Left = J
 
     Right = L
 
-    Anti-clockwise = O
+    Anti-clockwise
+    = U
 
-    Clockwise
-    = P'
+    Clockwise = O'
 --- !u!222 &86416579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -452,14 +456,18 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '[ Player 1 ]
 
+    W = Up
+
+    S = Down
+
     A = Left
 
-    S = Right
+    D = Right
 
-    Q = Anti-clockwise
+    Q
+    = Anti-clockwise
 
-    W
-    = Clockwise'
+    W = Clockwise'
 --- !u!222 &260451358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -934,7 +942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1243009715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1407,7 +1415,7 @@ Transform:
   m_GameObject: {fileID: 1992131511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
