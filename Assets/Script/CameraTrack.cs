@@ -11,16 +11,28 @@ public class CameraTrack : MonoBehaviour
 
     //Quaternion rot;   //[To Be Check] Error: unity Object reference not set to an instance of an object
     Vector3 pos;
-    float rotOpposite;
-    int camDistantZ = 8;
-    int camDistantY = 2;
+    Vector3 camPosDiff;
+    Quaternion camRotDiff;
     float speedPos = 6f;
-    float speedRot = 40f;
- 
+    float speedRot = 60f;
+    GameObject camTarget;
+    int reverse;
+
     // Start is called before the first frame update
     void Start()
     {
-        camDistantZ = (playerId == Players.Player1) ? camDistantZ : -camDistantZ;
+        reverse = (playerId == Players.Player2) ? -1 : 1;
+        camTarget = new GameObject(playerId + "_camTarget");
+        camTarget.transform.position = transform.position;
+        camTarget.transform.rotation = transform.rotation;
+        camTarget.transform.SetParent(target);
+        //camPosDiff = (playerId == Players.Player1) ? new Vector3(camDistantZ : -camDistantZ;
+        camPosDiff = transform.position - target.position;
+        camRotDiff = transform.rotation * Quaternion.Inverse(target.rotation);
+        //print(camPosDiff);
+        print(camRotDiff);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - reverse*4);  //Make camera slightly zoom at the beginning
+        transform.RotateAround(target.position, Vector3.up, 45); //Make camera slightly rotated at the beginning to see emery
     }
 
     // Update is called once per frame
@@ -32,13 +44,13 @@ public class CameraTrack : MonoBehaviour
         {
 
             pos = Vector3.Lerp(transform.position,
-                new Vector3(target.position.x, target.position.y + camDistantY, target.position.z - camDistantZ),
+                camTarget.transform.position,
                 Time.deltaTime * speedPos);
             transform.position = pos;
 
-            //Quaternion currentRot = transform.rotation;
-            //Quaternion targetRot = target.transform.rotation;
-            //transform.rotation = Quaternion.RotateTowards(currentRot, targetRot, Time.deltaTime * speedRot);
+            Quaternion currentRot = transform.rotation;
+            //Quaternion targetRot = target.transform.rotation * camRotDiff;
+            transform.rotation = Quaternion.RotateTowards(currentRot, camTarget.transform.rotation, Time.deltaTime * speedRot);
 
         }
         //// [To Be Check] Error: unity Object reference not set to an instance of an object
